@@ -8,30 +8,33 @@ import { HeroService } from '../hero.service';
 @Component({
   selector: 'app-hero-detail',
   templateUrl: './hero-detail.component.html',
-  styleUrls: ['./hero-detail.component.css']
+  styleUrls: ['./hero-detail.component.css'],
 })
 export class HeroDetailComponent implements OnInit {
-
   hero: Hero | undefined;
 
-  constructor(private route: ActivatedRoute, private heroService: HeroService, private location: Location) { }
+  constructor(
+    private route: ActivatedRoute,
+    private heroService: HeroService,
+    private location: Location
+  ) {}
 
   ngOnInit() {
     this.getHero();
   }
 
-  getHero(): void{
+  getHero(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.heroService.getHero(id).subscribe(hero => this.hero = hero);
+    this.heroService.getHero(id).subscribe((hero) => (this.hero = hero));
   }
 
-  goBack(): void{
+  goBack(): void {
     this.location.back();
   }
 
-  save(): void{
-    if(this.hero){
-      this.heroService.updateHero(this.hero).subscribe(()=>this.goBack());
+  save(): void {
+    if (this.hero) {
+      this.heroService.updateHero(this.hero).subscribe(() => this.goBack());
     }
   }
 }
